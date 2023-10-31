@@ -1,0 +1,3 @@
+/Users/oubyou/Desktop/CS402/CS402-SP-LAB1/cmake-build-debug/CMakeFiles/CS402_SP_LAB1.dir
+/Users/oubyou/Desktop/CS402/CS402-SP-LAB1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/oubyou/Desktop/CS402/CS402-SP-LAB1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
