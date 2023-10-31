@@ -1,3 +1,21 @@
+# Employee Database Project
+
+## Overview
+This project is a C program for managing an employee database. It allows the user to perform various operations such as adding new employees, searching for employees by ID or last name, and printing the entire database.
+
+## Features
+- Load employee data from a file.
+- Print out the entire employee database.
+- Lookup employee details using their ID.
+- Lookup employee details using their last name.
+- Add a new employee to the database.
+- Interactive user interface via command-line.
+
+## Prerequisites
+- GCC compiler or any standard C compiler.
+- Make sure all the project files are in the same directory.
+
+
 To test the file, 
 	1.Open the Terminal in CLion or use an external Terminal application.
 	2.Change directory to the project's directory:
