@@ -18,7 +18,7 @@ int read_int(int *value) {
         //    printf("Read integer: %d\n", *value);
     } else {
         // If fscanf failed to read an integer, print an error message
-        printf("Failed to read an integer.\n");
+        //printf("Failed to read an integer.\n");
     }
     return result;
 }

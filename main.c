@@ -2,11 +2,9 @@
 #include <stdlib.h>
 #include "employee.h"
 #include "readfile.h"
-#include <stdio.h>
 #include <string.h>
 #define MAX_EMPLOYEES 1024
 
-// Function declarations (assuming you will define them later)
 void printDatabase(Employee employees[], int count) {
     printf("\n%-10s %-20s %-20s %-10s\n", "ID", "First Name", "Last Name", "Salary");
     printf("------------------------------------------------------------\n");
@@ -24,7 +22,7 @@ void printDatabase(Employee employees[], int count) {
 int lookupByID(Employee employees[], int count, int id) {
     for (int i = 0; i < count; ++i) {
         if (employees[i].id == id) {
-            printEmployee(&employees[i]); // Assuming printEmployee is defined to print a single employee's info
+            printEmployee(&employees[i]);
             return i;
         }
     }
@@ -33,39 +31,58 @@ int lookupByID(Employee employees[], int count, int id) {
 int lookupByLastName(Employee employees[], int count, char *lastName) {
     for (int i = 0; i < count; ++i) {
         if (strcmp(employees[i].last_name, lastName) == 0) {
-            printEmployee(&employees[i]); // Assuming printEmployee is defined
+            printEmployee(&employees[i]);
             return i;
         }
     }
     return -1; // Not found
 }
-int addEmployee(Employee employees[], int *count, Employee newEmployee) {
+void addEmployee(Employee employees[], int *count) {
+    // Check if the database is full
     if (*count >= MAX_EMPLOYEES) {
         printf("Error: Database is full.\n");
-        return -1;
+        return;
     }
 
-    // Validate the new employee's data
+    Employee newEmployee;
+
+    // Prompt for ID
+    printf("Enter new employee ID (6 digits): ");
+    scanf("%d", &newEmployee.id);
+    while (getchar() != '\n');  // Clear the input buffer
+
     if (newEmployee.id < 100000 || newEmployee.id > 999999) {
         printf("Error: Invalid ID. Must be a six-digit number.\n");
-        return -1;
+        return;
     }
+
+    // Prompt for first name
+    printf("Enter new employee's first name: ");
+    scanf("%63s", newEmployee.first_name);
+    while (getchar() != '\n');  // Clear the input buffer
+
+    // Prompt for last name
+    printf("Enter new employee's last name: ");
+    scanf("%63s", newEmployee.last_name);
+    while (getchar() != '\n');  // Clear the input buffer
+
+    // Prompt for salary
+    printf("Enter new employee's salary (30000 - 150000): ");
+    scanf("%d", &newEmployee.salary);
+    while (getchar() != '\n');  // Clear the input buffer
+
     if (newEmployee.salary < 30000 || newEmployee.salary > 150000) {
         printf("Error: Invalid salary. Must be between $30,000 and $150,000.\n");
-        return -1;
-    }
-    if (strlen(newEmployee.first_name) == 0 || strlen(newEmployee.last_name) == 0) {
-        printf("Error: First and last names must not be empty.\n");
-        return -1;
+        return;
     }
 
-    // Add the new employee
-    employees[*count] = newEmployee;
-    (*count)++;
-    printf("New employee added successfully.\n");
+    // Once all fields are entered and validated:
+    employees[*count] = newEmployee;  // Add the new employee to the array
+    (*count)++;                       // Increment the employee count
 
-    return 0; // Success
+    printf("New employee added successfully. Total employees: %d\n", *count);
 }
+
 
 
 
@@ -90,19 +107,6 @@ int main(int argc, char *argv[]) {
 
     }
 
-    // Load employees from file
-//    while (read_int(&employees[employeeCount].id) == 0 &&
-//           read_string(employees[employeeCount].first_name, MAX_NAME) == 0 &&
-//           read_string(employees[employeeCount].last_name, MAX_NAME) == 0 &&
-//           read_int(&employees[employeeCount].salary) == 0) {
-//        employeeCount++;
-//        if (employeeCount >= MAX_EMPLOYEES) {
-//            fprintf(stderr, "Error: Maximum number of employees reached.\n");
-//            break;
-//        } else {
-//            printf("Failed to open input file.\n");
-//        }
-//    }
     while (employeeCount < MAX_EMPLOYEES) {
         int readID, readSalary;
         char readFirstName[MAX_NAME], readLastName[MAX_NAME];
@@ -173,9 +177,9 @@ int main(int argc, char *argv[]) {
                     }
                     break;
                 case 4:
-                    // Code to add an employee
-                    // You need to prompt for each field, validate it, and if validation passes,
+                    // prompt for each field, validate it, and if validation passes,
                     // add the employee to the array and increment `employeeCount`.
+                    addEmployee(employees, &employeeCount);
                     break;
                 case 5:
                     printf("Exiting the program.\n");
